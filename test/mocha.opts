@@ -1,0 +1,3 @@
+test/global-test-hooks.js
+--timeout 20000
+--exit
