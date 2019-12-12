@@ -18,8 +18,8 @@ describe('Schema Validator', () => {
   })
 
   it('Validation failed', () => {
-    const error = schemaValidator.validate({})
-    expect(error).to.eql({
+    const error = schemaValidator.validate.bind(schemaValidator,{})
+    expect(error).to.throw().to.include({
       field: '.',
       message: "Missing property '.a'."
     })

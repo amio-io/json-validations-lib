@@ -1,9 +1,9 @@
 class SchemaValidatorError extends Error{
   constructor(message, field = undefined, rejectedValue = undefined) {
     super()
+    this.message = message
     this.field = field
     this.rejected_value = rejectedValue
-    this.message = message
   }
 
   toObject(){

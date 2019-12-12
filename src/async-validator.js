@@ -1,3 +1,5 @@
+const convertValidationError = require("./utils/validation-errors-converter");
+
 class AsyncValidator {
 
   async validate(data) {
@@ -6,12 +8,12 @@ class AsyncValidator {
 
   /** Follows AJV error to be compatible with Schema errors */
   createError(path = [], keyword, data, params) {
-    return {
+    return convertValidationError({
       dataPath: path.join('.'),
       keyword,
       data,
       params
-    }
+    })
   }
 
 }
