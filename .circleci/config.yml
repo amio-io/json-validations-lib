@@ -35,8 +35,8 @@ jobs:
           cache_version: 1
 
       - run:
-          name: Tests
-          command: npm run-script test
+          name: Test - units
+          command: npm run-script test-units
 
       - persist_to_workspace:
           root: ~/json-validations-lib
