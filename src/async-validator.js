@@ -6,7 +6,7 @@ class AsyncValidator {
     throw Error('validate() must be implemented in children')
   }
 
-  /** Follows AJV error to be compatible with Schema errors */
+  /** Follows AJV error to be compatible with Schema errors. */
   createError(path = [], keyword, data, params) {
     return convertValidationError({
       dataPath: path.join('.'),
