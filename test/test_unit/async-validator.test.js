@@ -5,6 +5,7 @@ chai.use(require('chai-as-promised'))
 
 describe('async-validator test', async () => {
     const asyncValidatorTest = new AsyncValidatorTest()
+
     it('Validation passed', async () => {
         const result = await asyncValidatorTest.validate({valid: true})
         expect(result).to.be.true
