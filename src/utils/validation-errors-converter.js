@@ -8,6 +8,7 @@ function convertValidationError(error) {
   const params = errorObject.params
 
   switch(errorObject.keyword) {
+    // TODO Create different error messages for objects and strings #4
     case 'type':
       return new SchemaValidatorError(`Property '${propName}' must be ${params.type}.`, errorObject.dataPath, errorObject.data)
     case 'additionalProperties':

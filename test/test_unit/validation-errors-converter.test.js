@@ -6,14 +6,19 @@ describe('validation-error-converter test', () => {
     it('type', () => {
         const schema = {
             $id: 'http://example.com/schemas/schema.json',
-            type: 'object'
+            type: 'object',
+            properties: {
+                typeError: {
+                    type: 'object'
+                }
+            }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, 'invalid-type')
+        const result = schemaValidator.validate.bind(schemaValidator, {typeError: 'invalid-type'})
         expect(result).to.throw().to.include({
-            field: '',
-            message: "Property '' must be object.",
+            field: '.typeError',
+            message: "Property 'typeError' must be object.",
             rejected_value: 'invalid-type'
         })
     })
@@ -43,18 +48,23 @@ describe('validation-error-converter test', () => {
             $id: 'http://example.com/schemas/schema.json',
             type: 'object',
             additionalProperties: false,
-            required: ['requiredProperty'],
             properties: {
-                requiredProperty: {
-                    type: 'string'
+                requiredError: {
+                    type: 'object',
+                    required: ['requiredProperty'],
+                    properties: {
+                        requiredProperty: {
+                            type: 'string'
+                        }
+                    }
                 }
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, {})
+        const result = schemaValidator.validate.bind(schemaValidator, {requiredError: {}})
         expect(result).to.throw().to.include({
-            field: '.',
+            field: '.requiredError',
             message: "Missing property 'requiredProperty'."
         })
     })
@@ -62,15 +72,20 @@ describe('validation-error-converter test', () => {
     it('const', () => {
         const schema = {
             $id: 'http://example.com/schemas/schema.json',
-            type: 'string',
-            const: 'valid_value'
+            type: 'object',
+            properties: {
+                constError: {
+                    type: 'string',
+                    const: 'valid_value'
+                }
+            }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, 'invalid_value')
+        const result = schemaValidator.validate.bind(schemaValidator, {constError: 'invalid_value'})
         expect(result).to.throw().to.include({
-            field: '',
-            message: "Property '' must have value 'valid_value'.",
+            field: '.constError',
+            message: "Property 'constError' must have value 'valid_value'.",
             rejected_value: 'invalid_value'
         })
     })
@@ -78,19 +93,24 @@ describe('validation-error-converter test', () => {
     it('enum - values', () => {
         const schema = {
             $id: 'http://example.com/schemas/schema.json',
-            type: 'string',
-            enum: [
-                'valid-1',
-                'valid-2',
-                'valid-3'
-            ]
+            type: 'object',
+            properties: {
+                enumError: {
+                    type: 'string',
+                    enum: [
+                        'valid-1',
+                        'valid-2',
+                        'valid-3'
+                    ]
+                }
+            }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, 'invalid')
+        const result = schemaValidator.validate.bind(schemaValidator, {enumError: 'invalid'})
         expect(result).to.throw().to.include({
-            field: '',
-            message: "Property '' with value 'invalid' does not match any allowed value: valid-1, valid-2, valid-3.",
+            field: '.enumError',
+            message: "Property 'enumError' with value 'invalid' does not match any allowed value: valid-1, valid-2, valid-3.",
             rejected_value: 'invalid'
         })
     })
@@ -120,15 +140,20 @@ describe('validation-error-converter test', () => {
     it('format URL', () => {
         const schema = {
             $id: 'http://example.com/schemas/schema.json',
-            type: 'string',
-            format: 'httpUrl'
+            type: 'object',
+            properties: {
+                formatError: {
+                    type: 'string',
+                    format: 'httpUrl'
+                }
+            }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, 'invalid-url')
+        const result = schemaValidator.validate.bind(schemaValidator, {formatError: 'invalid-url'})
         expect(result).to.throw().to.include({
-            field: '',
-            message: `Property '' must be a valid URL. Current value is "invalid-url"`,
+            field: '.formatError',
+            message: `Property 'formatError' must be a valid URL. Current value is "invalid-url"`,
             rejected_value: 'invalid-url'
         })
     })
@@ -136,15 +161,20 @@ describe('validation-error-converter test', () => {
     it('format other', () => {
         const schema = {
             $id: 'http://example.com/schemas/schema.json',
-            type: 'string',
-            format: 'email'
+            type: 'object',
+            properties: {
+                formatError: {
+                    type: 'string',
+                    format: 'email'
+                }
+            }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
-        const result = schemaValidator.validate.bind(schemaValidator, 'invalid-email')
+        const result = schemaValidator.validate.bind(schemaValidator, {formatError: 'invalid-email'})
         expect(result).to.throw().to.include({
-            field: '',
-            message: `Property '' should match format "email"`,
+            field: '.formatError',
+            message: `Property 'formatError' should match format "email"`,
             rejected_value: 'invalid-email'
         })
     })
