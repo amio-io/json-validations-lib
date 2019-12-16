@@ -1,18 +1,23 @@
 const expect = require('chai').expect
 const SchemaValidator = require('../../src/schema-validator')
+const clone = require('ramda/src/clone')
 
 describe('validation-error-converter test', () => {
 
+    const baseSchema = {
+        $id: 'http://example.com/schemas/schema.json',
+        type: 'object',
+        additionalProperties: false
+    }
+
     it('type', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            properties: {
-                typeError: {
-                    type: 'object'
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            typeError: {
+                type: 'object'
             }
         }
+
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
         const result = schemaValidator.validate.bind(schemaValidator, {typeError: 'invalid-type'})
@@ -24,14 +29,10 @@ describe('validation-error-converter test', () => {
     })
 
     it('additionalProperties', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            additionalProperties: false,
-            properties: {
-                valid: {
-                    type: 'string'
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            valid: {
+                type: 'string'
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
@@ -44,18 +45,14 @@ describe('validation-error-converter test', () => {
     })
 
     it('required', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            additionalProperties: false,
-            properties: {
-                requiredError: {
-                    type: 'object',
-                    required: ['requiredProperty'],
-                    properties: {
-                        requiredProperty: {
-                            type: 'string'
-                        }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            requiredError: {
+                type: 'object',
+                required: ['requiredProperty'],
+                properties: {
+                    requiredProperty: {
+                        type: 'string'
                     }
                 }
             }
@@ -70,14 +67,11 @@ describe('validation-error-converter test', () => {
     })
 
     it('const', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            properties: {
-                constError: {
-                    type: 'string',
-                    const: 'valid_value'
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            constError: {
+                type: 'string',
+                const: 'valid_value'
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
@@ -91,18 +85,15 @@ describe('validation-error-converter test', () => {
     })
 
     it('enum - values', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            properties: {
-                enumError: {
-                    type: 'string',
-                    enum: [
-                        'valid-1',
-                        'valid-2',
-                        'valid-3'
-                    ]
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            enumError: {
+                type: 'string',
+                enum: [
+                    'valid-1',
+                    'valid-2',
+                    'valid-3'
+                ]
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
@@ -116,17 +107,13 @@ describe('validation-error-converter test', () => {
     })
 
     it('enum - properties', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            additionalProperties: false,
-            propertyNames: {
-                enum: [
-                    'valid-prop-1',
-                    'valid-prop-2',
-                    'valid-prop-3'
-                ]
-            }
+        const schema = clone(baseSchema)
+        schema.propertyNames = {
+            enum: [
+                'valid-prop-1',
+                'valid-prop-2',
+                'valid-prop-3'
+            ]
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
 
@@ -138,14 +125,11 @@ describe('validation-error-converter test', () => {
     })
 
     it('format URL', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            properties: {
-                formatError: {
-                    type: 'string',
-                    format: 'httpUrl'
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            formatError: {
+                type: 'string',
+                format: 'httpUrl'
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
@@ -159,14 +143,11 @@ describe('validation-error-converter test', () => {
     })
 
     it('format other', () => {
-        const schema = {
-            $id: 'http://example.com/schemas/schema.json',
-            type: 'object',
-            properties: {
-                formatError: {
-                    type: 'string',
-                    format: 'email'
-                }
+        const schema = clone(baseSchema)
+        schema.properties = {
+            formatError: {
+                type: 'string',
+                format: 'email'
             }
         }
         const schemaValidator = new SchemaValidator(schema.$id, [schema])
