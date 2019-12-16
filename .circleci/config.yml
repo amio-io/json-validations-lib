@@ -66,10 +66,9 @@ workflows:
             tags:
               # PROD - run CircleCI on tag create
               only: /^v[0-9]+(\.[0-9]+)*/
-      - publish_prod
-#      - publish_prod:
-#          requires:
-#            - build
+      - publish_prod:
+          requires:
+            - build
 #          filters:
 #            tags:
 #              # run CircleCI on tag create
