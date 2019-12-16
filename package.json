@@ -1,22 +1,25 @@
 {
   "name": "json-validations-lib",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "test-units": "cross-env BUILD_ENV=test DEBUG=amio* mocha test/test_unit/**/*.test.js --reporter mocha-multi-reporters --reporter-options configFile=test/mocha-reporters-config.json"
+    "test-units": "cross-env BUILD_ENV=test DEBUG=amio* mocha test/test_unit/**/*.test.js --reporter mocha-multi-reporters --reporter-options configFile=test/mocha-reporters-config.json",
+    "can-publish-nix": "npm info $npm_package_name version | npm-version-bump-checker",
+    "can-publish-win": "npm info %npm_package_name% version | npm-version-bump-checker"
   },
   "dependencies": {
     "ajv": "6.10.2",
-    "logzio-node-debug": "^2.0.0",
+    "logzio-node-debug": "2.0.0",
     "ramda": "0.26.1",
     "valid-url": "1.0.9"
   },
   "devDependencies": {
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
+    "cross-env": "6.0.3",
     "mocha": "6.1.4",
     "mocha-junit-reporter": "1.22.0",
     "mocha-multi-reporters": "1.1.7",
-    "mochawesome": "3.1.2"
+    "mochawesome": "3.1.2",
+    "npm-version-bump-checker": "1.0.4"
   }
 }

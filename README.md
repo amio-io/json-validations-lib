@@ -1,2 +1,3 @@
 # json-validations-lib
-Private lib. We do not recommend to use it.
+We do not recommend to use this lib, it is for Amio purposes.
+
