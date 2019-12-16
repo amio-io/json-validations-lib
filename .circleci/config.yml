@@ -56,7 +56,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/json-validations-lib/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: npm publish --access public
 
 workflows:
   build_and_publish:
