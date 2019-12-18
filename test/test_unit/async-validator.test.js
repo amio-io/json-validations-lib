@@ -12,8 +12,8 @@ describe('async-validator test', async () => {
     })
 
     it('Validation failed', async () => {
-        const result = asyncValidatorTest.validate({valid: false})
-        await expect(result).to.be.rejectedWith('expected "valid" to be true').eventually.include({
+        const validateFn = asyncValidatorTest.validate({valid: false})
+        await expect(validateFn).to.be.rejectedWith('expected "valid" to be true').eventually.include({
             message: 'expected "valid" to be true',
             field: 'valid',
             rejected_value: false

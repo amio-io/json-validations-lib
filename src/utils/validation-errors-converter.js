@@ -15,7 +15,7 @@ function convertValidationError(error) {
       return new SchemaValidatorError(`Property '${params.additionalProperty}' is not supported.`,
         errorObject.dataPath + '.' + params.additionalProperty)
     case 'required': {
-      const fieldPath = (errorObject.dataPath) ? errorObject.dataPath : '.'
+      const fieldPath = errorObject.dataPath || '.'
       return new SchemaValidatorError(`Missing property '${params.missingProperty}'.`, fieldPath)
     }
     case 'const':
