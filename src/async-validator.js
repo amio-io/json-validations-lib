@@ -1,7 +1,8 @@
-const convertValidationError = require("./utils/validation-errors-converter");
+const {convertValidationError} = require("./utils/validation-errors-converter");
 
 class AsyncValidator {
 
+  // noinspection JSUnusedLocalSymbols
   async validate(data) {
     throw Error('validate() must be implemented in children')
   }
