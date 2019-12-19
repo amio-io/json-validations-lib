@@ -1,5 +1,6 @@
 const expect = require('chai').expect
 const SchemaValidator = require('../../src/schema-validator')
+const ValidationErrorsConverter = require('../../src/utils/validation-errors-converter')
 const clone = require('ramda/src/clone')
 
 describe('validation-error-converter test', () => {
@@ -157,6 +158,23 @@ describe('validation-error-converter test', () => {
             field: '.formatError',
             message: `Property 'formatError' should match format "email"`,
             rejected_value: 'invalid-email'
+        })
+    })
+
+    it('not_found', () => {
+        const schemaError = {
+            keyword: 'not_found',
+            dataPath: 'message_template.id',
+            data: 1,
+            params: {
+                notFoundPropName: 'message_template'
+            }
+        }
+        const result = ValidationErrorsConverter.convertValidationError(schemaError)
+        expect(result).to.include({
+            message: 'Cannot find message_template with id 1.',
+            field: 'message_template.id',
+            rejected_value: 1
         })
     })
 })
