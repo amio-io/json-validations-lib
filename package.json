@@ -1,6 +1,6 @@
 {
   "name": "json-validations-lib",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "scripts": {
     "test-units": "cross-env BUILD_ENV=test DEBUG=amio* mocha test/test_unit/**/*.test.js --reporter mocha-multi-reporters --reporter-options configFile=test/mocha-reporters-config.json",
     "can-publish-nix": "npm info $npm_package_name version | npm-version-bump-checker",
