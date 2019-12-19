@@ -22,11 +22,11 @@ function convertValidationError(error) {
       return new SchemaValidatorError(`Property '${propName}' must have value '${params.allowedValue}'.`, errorObject.dataPath, errorObject.data)
     case 'enum':
       return convertEnum(errorObject.data, errorObject.dataPath, params, propName, errorObject.schemaPath)
-    case 'keys_not_equal': {
+    case 'keys_not_equal': {// non-schema error
       const message = `Provided keys do not match expected keys: ${params.originalKeys}.`
       return new SchemaValidatorError(message, errorObject.dataPath, errorObject.data)
     }
-    case 'not_found':// this case use to be async
+    case 'not_found':// non-schema error
       const notFoundPropName = params.notFoundPropName
       const message = `Cannot find ${notFoundPropName} with id ${errorObject.data}.`
       return new SchemaValidatorError(message, errorObject.dataPath, errorObject.data)
